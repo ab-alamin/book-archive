@@ -7,21 +7,23 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <title>Book Achive</title>
 </head>
-<body class="bg-gray">
+<body class="bg-light">
     <h2 class="text-center text-success">Book Archive</h2>
 
      <!-- Book search text  -->
 
      <div class="input-group mb-3 w-50 mx-auto">
         <input id="search-field" type="text" class="form-control" placeholder="search the book you want" aria-label="Recipient's username" aria-describedby="button-addon2">
+
         <button onclick="searchBook()" class="btn btn-outline-secondary" type="button" id="button-search">Search</button>
+
       </div>
+       <!-- error massage -->
+     <div id="error"></div>
 
-     
-
-      <!-- single book details  -->
+      <!-- single book details 
       <div id="book-details" class="w-50 mx-auto">
-    </div>
+    </div> -->
 
     <!-- book search result -->
     <div id="search-result" class="row row-cols-1 row-cols-md-3 g-4">

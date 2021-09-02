@@ -1,66 +1,60 @@
 const searchBook = () => {
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
-    console.log(searchText);
   // clear data
     searchField.value = '';
-    //  // Error Handing
-    // // if(books.docs.length === 0);
-    //   // console.log(books);
-    
-  
+
+    //   // Error Handing
+
+    // const errorDiv = document.getElementById('error');
+    // if (books.message === "Not Found") {
+    //   errorDiv.innerText = "NO Result Found";
+    // } else {
+    //   errorDiv.innerText = "";
+    // }
+   
       const url = `https://openlibrary.org/search.json?q=${searchText}`;
       fetch(url)
       .then(res => res.json())
-      .then(data => displayBooks(data.docs));
+      .then(data => displayBooks(data));
   
     }
 
-  
-  
-  const displayBooks = (data) => {
+  const displayBooks = books => {
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';
 
    
   
-    data.docs.forEach(book => {
-        console.log(books);
+    books.docs.forEach((book) => {
+        
         const div = document.createElement('div');
-        div.classList.add('col');
-        div.innerHTML= `
-        <div onclick="loadBookDetail(${book.numFound})" class="card h-100">
-            <img src="${book.cover_i}" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">${book.strMeal}</h5>
-              <p class="card-text">${book.strInstructions.slice(0, 250)}</p>
+  
+        div.innerHTML = `
+            <div class="col">
+                <div class="card">
+                    <div class="row g-0">
+
+                        <div class="col-md-4 p-2">
+                            <img src="https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg" class="card-img-top" alt="...">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h2 class="card-title">${book.title}</h2>
+                                <br>
+                                <p class="card-text"><span>Author Name:</span> ${(book.author_name === undefined) ? 'Not found' : book.author_name}</p>
+                                <p class="card-text"><span>Publisher Name:</span> ${(book.publisher === undefined) ? 'Not found' : book.publisher.slice(0, 5)}</p>
+                                <p class="card-text">First Publish in ${(book.first_publish_year === undefined) ? 'Not found' : book.first_publish_year}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-          </div>
-          `;
+            `;
           searchResult.appendChild(div);
         
     });
   }
-  const loadBookDetail = _book => {
-    const url = `https://covers.openlibrary.org/b/id/${cover_i}`;
-    fetch(url)
-    .then(res=>res.json())
-    .then(data =>displayBookDetail(data.books[0]));
-  }
+
   
-  const displayBookDetail = book => {
-    console.log(book);
-    const bookDetails = document.getElementById('book-details');
-    const div = document.createElement('div');
-    div.classList.add('card');
-    div.innerHTML = `
-    <img src="${book.cover_i}" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">${book.title}</h5>
-              <p class="card-text">${book.author_name}</p>
-              <p class="card-text">${book.publish_date}</p>
-            </div>
-    
-    `;
-    bookDetails.appendChild(div);
-  }
